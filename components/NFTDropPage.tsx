@@ -20,7 +20,7 @@ export const NFTDropPage = (props: Props) => {
     )
 }
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -30,14 +30,14 @@ export const Container = styled.div`
   padding: 50px;
 `
 
-export const Top = styled.div`
+const Top = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 `
-export const Center = styled.div`
+const Center = styled.div`
   width: 100%;
   height: 100%;
   display: flex;

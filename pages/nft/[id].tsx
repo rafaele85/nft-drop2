@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import {SideBanner} from "../../components/SideBanner";
 import {Header} from "../../components/Header";
-import {MintButton} from "../../components/MintButton";
 import {SanityCollection} from "../../types";
 import {sanityClient} from "../../sanity";
 import {Collection} from "../../components/Collection";
@@ -23,9 +22,6 @@ const CollectionPage = (props: Props) => {
                 <Center>
                     <Collection collection={props.collection} />
                 </Center>
-                <Bottom>
-                    <MintButton />
-                </Bottom>
             </Right>
         </Container>
     )
@@ -61,7 +57,7 @@ export const getServerSideProps = async (ctx: Ctx) => {
         }
     }`
     const collection = await sanityClient.fetch<SanityCollection[]>(query, {id: ctx.params.id})
-    console.log(collection)
+
     return {
         props: {
             collection
@@ -69,9 +65,7 @@ export const getServerSideProps = async (ctx: Ctx) => {
     }
 }
 
-
-
-export const Container = styled.div`
+const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -82,9 +76,7 @@ export const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 `
-
-
-export const Left = styled.div`
+const Left = styled.div`
   width: 100%;
   min-width: fit-content;
   @media (min-width: 640px) {
@@ -97,7 +89,7 @@ export const Left = styled.div`
   justify-content: flex-start;
   background: linear-gradient(125deg, rgb(5, 5, 98) 0%, #f58477 100%);
 `
-export const Right = styled.div`
+const Right = styled.div`
   width: 100%;
   height: 100%;
   @media (min-width: 640px) {
@@ -110,14 +102,14 @@ export const Right = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 `
-export const Top = styled.div`
+const Top = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 `
-export const Center = styled.div`
+const Center = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -126,10 +118,3 @@ export const Center = styled.div`
   justify-content: flex-start;
 `
 
-export const Bottom = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-`

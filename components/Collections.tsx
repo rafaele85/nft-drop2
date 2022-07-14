@@ -21,7 +21,7 @@ export const Collections = (props: Props) => {
     )
 }
 
-export const Container = styled.div`
+const Container = styled.div`
   --cls: Collections-Container;
   width: 100%;
   height: 100%;
