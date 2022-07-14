@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import Image from 'next/image'
+import {Collections} from "./Collections";
+import {SanityCollection} from "../types";
 
-export const MainInfo = () => {
+type Props = {
+    collections: SanityCollection[]
+}
+
+export const MainInfo = (props: Props) => {
     return (
         <Container>
-            <Banner src={'/assets/banner.png'} width={240} height={100}/>
-            <Title>
-                The BAYC Ape coding club | NFT Drop
-            </Title>
-            <Claimed>
-                13 / 21 NFTs claimed
-            </Claimed>
+            <Collections collections={props.collections} />
         </Container>
     )
 }
@@ -26,16 +25,3 @@ const Container = styled.div`
   color: black;
 `
 
-const Banner = styled(Image)`
-`
-
-const Title = styled.h1`
-  width: 100%;
-  text-align: center;
-`
-
-const Claimed = styled.span`
-  width: 100%;
-  text-align: center;
-  color: green;
-`

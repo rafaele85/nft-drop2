@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import {SideBanner} from "../../components/SideBanner";
 import {Header} from "../../components/Header";
-import {MainInfo} from "../../components/MainInfo";
 import {MintButton} from "../../components/MintButton";
+import {SanityCollection} from "../../types";
+import {sanityClient} from "../../sanity";
+import {Collection} from "../../components/Collection";
 
-export const NFTDropPage = () => {
+type Props = {
+    collection: SanityCollection
+}
+
+const CollectionPage = (props: Props) => {
     return (
         <Container>
             <Left>
@@ -15,7 +21,7 @@ export const NFTDropPage = () => {
                     <Header />
                 </Top>
                 <Center>
-                    <MainInfo />
+                    <Collection collection={props.collection} />
                 </Center>
                 <Bottom>
                     <MintButton />
@@ -24,6 +30,46 @@ export const NFTDropPage = () => {
         </Container>
     )
 }
+
+
+export default CollectionPage
+
+
+type Ctx = {
+    params: {
+        id: string
+    }
+}
+
+export const getServerSideProps = async (ctx: Ctx) => {
+    const query = `
+    *[_type == "collection" && _id == $id][0]{
+        _id,
+        title,
+        address,
+        description,
+        nftCollectionName,
+        mainImage,
+        previewImage,
+        slug {
+            current
+        },
+        creator-> {
+            _id,
+            name,
+            address
+        }
+    }`
+    const collection = await sanityClient.fetch<SanityCollection[]>(query, {id: ctx.params.id})
+    console.log(collection)
+    return {
+        props: {
+            collection
+        }
+    }
+}
+
+
 
 export const Container = styled.div`
   width: 100%;
@@ -36,6 +82,7 @@ export const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 `
+
 
 export const Left = styled.div`
   width: 100%;
@@ -86,6 +133,3 @@ export const Bottom = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 `
-
-
-
